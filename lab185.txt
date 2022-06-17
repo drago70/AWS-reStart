@@ -1,0 +1,21 @@
+SecretKey	iYfTuwi/JCLgaIqQJJqLv4T96xnGhQQXTgMe0Kch
+LabRegion	us-west-2
+CliHostPublicIP	34.221.220.184
+AccessKey	AKIA22TRJEL6RK6B376M
+s3://dragolab1850906
+
+AK: AKIA22TRJEL6ZULBVDGV
+SK: 5BFdjR3vWRakPCQrb1J3Q9CI1/MkK7kbDGNsnot1
+Account ID: 744340660989
+
+curl http://169.254.169.254/latest/dynamic/instance-identity/document | grep region
+"region" : "us-west-2",
+
+Createbucket - aws s3mb
+aws s3 mb s3://dragolab1850906 --region us-west-2
+
+aws s3 sync ~/initial-images/ s3://dragolab1850906/images
+aws s3 ls s3://dragolab1850906/images --human-readable --summarize
+
+
+

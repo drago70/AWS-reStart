@@ -1,0 +1,41 @@
+*Encrypting*
+
+Take three arguments: the message, the cipherKey, and the alphabet.
+
+Initialize variables.
+
+Use a for loop to traverse each letter in the message.
+
+For a specific letter, find the position.
+
+For a specific letter, determine the new position given the cipher key.
+
+If current letter is in the alphabet, append the new letter to the encrypted message.
+
+If current letter is not in the alphabet, append the current letter.
+
+Return the encrypted message after exhausting all the letters in the message.
+
+
+*Main function*
+
+Define a string variable to contain the English alphabet.
+
+To be able to shift letters, double your alphabet string.
+
+Get a message to encrypt from the user.
+
+Get a cipher key from the user.
+
+Encrypt the message.
+
+Decrypt the message.
+
+
+Prime Numbers
+a number that is divisible only by itself and 1
+% modulo shows remainder whan a is divided by b
+
+
+
+

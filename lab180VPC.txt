@@ -1,0 +1,84 @@
+180 LAB Troubleshooting VPC
+
+SecretKey	cvjEbK+Xx1KXi+5ITVh1em6HhaHGRfPPwHDCJOx7
+VPC1GatewayId	igw-07cb5f5adf376ebfc
+VPC1PubSubnetID	subnet-030adc0912ce41bfa
+WebServerSgId	sg-01b8f685b3a38e5d0
+VPC1ID	vpc-07685217d9e9bcac9
+CliHostIP	34.222.62.231
+AccessKey	AKIAW26JTAXY3WI4DSI6
+VPC1PubRouteTableId	rtb-054f6e2665171a541
+WebServerIP	35.86.250.26
+
+
+curl http://169.254.169.254/latest/dynamic/instance-identity/document | grep region
+
+us-west-2
+
+aws s3api create-bucket --bucket flowlog0306 --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2 
+
+flowlog0306
+"Location": "http://flowlog0306.s3.amazonaws.com/"
+
+VPC
+"vpc-07685217d9e9bcac9",
+"VPC1"       "10.0.0.0/16"
+
+aws ec2 create-flow-logs --resource-type VPC --resource-ids vpc-07685217d9e9bcac9 --traffic-type ALL --log-destination-type s3 --log-destination arn:aws:s3:::flowlog0306
+
+{
+    "Unsuccessful": [],
+    "FlowLogIds": [
+        "fl-0dd3ba5a2e0f84c85"
+    ],
+    "ClientToken": "GFERrjG5b09fs7FjeFFvli1R4vXus4cye3O546kHgiY="
+}
+
+  "FlowLogs": [
+        {
+            "LogDestinationType": "s3",
+            "Tags": [],
+            "ResourceId": "vpc-07685217d9e9bcac9",
+            "CreationTime": "2022-06-03T07:54:27.397Z",
+            "TrafficType": "ALL",
+            "FlowLogStatus": "ACTIVE",
+            "LogFormat": "${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}",
+            "FlowLogId": "fl-0dd3ba5a2e0f84c85",
+            "MaxAggregationInterval": 600,
+            "LogDestination": "arn:aws:s3:::flowlog0306",
+            "DeliverLogsStatus": "SUCCESS"
+
+32. aws ec2 describe-instances --filter "Name=ip-address,Values='35.86.250.26'"
+
+aws ec2 describe-instances --filter "Name=ip-address,Values='35.86.250.26'" --query 'Reservations[*].Instances[*].[State,PrivateIpAddress,InstanceId,SecurityGroups,SubnetId,KeyName]'
+[
+    [
+        [
+            {
+                "Code": 16,
+                "Name": "running"
+            },
+            "10.0.1.186",
+            "i-0385dd3cf64f64671",
+            [
+                {
+                    "GroupName": "c50904a774122l2224172t1w470184822257-WebSecurityGroup-KJG9FYHG7CMT",
+                    "GroupId": "sg-01b8f685b3a38e5d0"
+                }
+            ],
+            "subnet-030adc0912ce41bfa",
+            "vockey"
+        ]
+    ]
+]
+
+
+nmap 35.86.250.26
+
+
+aws ec2 describe-route-tables --filter "Name=association.subnet-id,Values='vpc-07685217d9e9bcac9'"
+
+aws ec2 create-route
+
+aws ec2 create-route --route-table-id rtb-054f6e2665171a541 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-07cb5f5adf376ebfc
+

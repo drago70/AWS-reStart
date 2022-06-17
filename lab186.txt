@@ -1,0 +1,19 @@
+SecretKey	242u/7mt1CeL+0yitMjHuCqm0RN+/1IAta8smprT
+PublicIP	35.86.144.51
+AccessKey	AKIAZWUTV3FOWKGRHKFF
+
+aws s3api create-bucket --bucket flowlog1000 --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
+
+aws s3api create-bucket \
+    --bucket lab186drago090622 
+
+aws s3 cp file.txt s3://lab186drago090622/
+
+aws s3api put-object-acl --bucket lab186drago090622 --key index.html --acl public-read
+
+
+
+
+   
+
+
